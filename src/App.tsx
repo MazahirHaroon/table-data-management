@@ -1,5 +1,3 @@
-import './App.css';
-
 function App() {
   return (
     <header className='flex justify-center gap-2 p-4 m-4'>
