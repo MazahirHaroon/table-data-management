@@ -4,4 +4,14 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      src: '/src',
+      '@assets': '/assets',
+      '@pages': '/src/pages/index',
+      '@components': '/src/components',
+      '@constants': '/src/constants',
+      '@utils': '/src/utils',
+    },
+  },
 });
