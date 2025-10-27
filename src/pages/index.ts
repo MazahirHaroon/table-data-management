@@ -1,3 +1,4 @@
 import App from './App';
+import Characters from './Characters';
 
-export { App };
+export { App, Characters };
