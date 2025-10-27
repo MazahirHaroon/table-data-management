@@ -1,3 +1,10 @@
-const characterTableHeader = ['name', 'location', 'health', 'power'];
+import type { CharacterList } from '@typesData/characters';
+
+const characterTableHeader: (keyof CharacterList)[] = [
+  'name',
+  'location',
+  'health',
+  'power',
+];
 
 export { characterTableHeader };
