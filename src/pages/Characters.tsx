@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
+import { characterTableHeader } from '@constants/characters';
 import type { CharacterList } from '@typesData/characters';
 import { getCharacters } from '@utils/api';
+import { Table } from '@components/Table';
 
 const Characters = () => {
   const [characters, setCharacters] = useState<CharacterList[]>([]);
@@ -44,8 +46,7 @@ const Characters = () => {
       </div>
     );
 
-  // Testing out values.
-  return characters.map(({ name }) => <p>{name}</p>);
+  return <Table headers={characterTableHeader} rows={characters} />;
 };
 
 export default Characters;

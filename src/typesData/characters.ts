@@ -7,3 +7,5 @@ export interface CharacterList {
 }
 
 export type ApiResponse = CharacterList[];
+
+export type TableIdKey = string | number;
