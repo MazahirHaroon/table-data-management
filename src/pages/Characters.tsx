@@ -46,7 +46,13 @@ const Characters = () => {
       </div>
     );
 
-  return <Table headers={characterTableHeader} rows={characters} />;
+  return (
+    <Table
+      caption="Character's Database"
+      headers={characterTableHeader}
+      rows={characters}
+    />
+  );
 };
 
 export default Characters;
