@@ -9,7 +9,7 @@ const Header = ({ headers }: HeaderProps) => {
         {headers.map((header) => (
           <th
             key={header}
-            className='border border-gray-300 p-4 w-48 text-left capitalize'
+            className='border-2 border-table-border font-family-body text-text-color-subheading bg-primary-light p-4 w-48 text-left capitalize'
           >
             {header as React.ReactNode}
           </th>

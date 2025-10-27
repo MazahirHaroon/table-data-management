@@ -16,7 +16,7 @@ export const Row = <T extends { id: TableIdKey }>({
         return (
           <td
             key={String(key)}
-            className='border border-gray-300 p-4 w-48 text-left truncate'
+            className='border-2 font-family-body text-text-color-subheading border-table-border p-4 w-48 text-left truncate'
           >
             {cell as React.ReactNode}
           </td>

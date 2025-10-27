@@ -35,14 +35,18 @@ const Characters = () => {
   if (loading)
     return (
       <div className='flex justify-center items-center'>
-        <p className='text-2xl text-gray-500'>Loading...</p>
+        <p className='text-minor text-text-alerts font-family-body'>
+          Loading...
+        </p>
       </div>
     );
 
   if (error)
     return (
       <div className='flex justify-center items-center'>
-        <p className='text-2xl text-red-600'>Error...</p>
+        <p className='text-secondary-heading text-text-error font-family-body'>
+          Error...
+        </p>
       </div>
     );
 
