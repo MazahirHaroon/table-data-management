@@ -10,6 +10,7 @@ export default defineConfig({
       '@assets': '/assets',
       '@pages': '/src/pages/index',
       '@components': '/src/components',
+      '@custom-ui': '/src/components/customUI/index',
       '@constants': '/src/constants',
       '@utils': '/src/utils',
       '@typesData': '/src/typesData',

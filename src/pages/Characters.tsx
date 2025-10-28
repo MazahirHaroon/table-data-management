@@ -4,9 +4,8 @@ import { characterTableHeader } from '@constants/characters';
 import type { CharacterList } from '@typesData/characters';
 import { getCharacters } from '@utils/api';
 
+import { PrimaryButton, Input } from '@custom-ui';
 import { Table } from '@components/Table';
-import PrimaryButton from 'src/components/Button/Primary';
-import Input from 'src/components/Input';
 
 const Characters = () => {
   const [characters, setCharacters] = useState<CharacterList[]>([]);
