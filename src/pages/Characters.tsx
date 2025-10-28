@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { characterTableHeader } from '@constants/characters';
 import type { CharacterList } from '@typesData/characters';
 import { getCharacters } from '@utils/api';
+
 import { Table } from '@components/Table';
 
 const Characters = () => {
@@ -51,11 +52,17 @@ const Characters = () => {
     );
 
   return (
-    <Table
-      caption="Character's Database"
-      headers={characterTableHeader}
-      rows={characters}
-    />
+    <div className='flex flex-col '>
+      <h2 className='text-center text-secondary-heading text-text-color-subheading font-family-heading font-bold  mb-4'>
+        Characters' Data
+      </h2>
+      <Table
+        caption="Character's Database"
+        hideCaption={true}
+        headers={characterTableHeader}
+        rows={characters}
+      />
+    </div>
   );
 };
 
