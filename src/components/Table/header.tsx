@@ -4,7 +4,7 @@ interface HeaderProps {
 
 const Header = ({ headers }: HeaderProps) => {
   return (
-    <thead>
+    <thead className='sticky top-0'>
       <tr>
         {headers.map((header) => (
           <th
