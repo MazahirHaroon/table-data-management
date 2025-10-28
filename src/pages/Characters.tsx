@@ -53,8 +53,8 @@ const Characters = () => {
     );
 
   return (
-    <div className='flex flex-col '>
-      <h2 className='text-center text-secondary-heading text-text-color-subheading font-family-heading font-bold  mb-4'>
+    <div className='flex flex-col'>
+      <h2 className='text-center text-secondary-heading text-text-color-subheading font-family-heading font-bold mb-4'>
         Characters' Data
       </h2>
       <div className='flex justify-between items-center w-full p-2 border-2 border-table-border'>

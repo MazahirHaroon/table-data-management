@@ -2,7 +2,6 @@ import { type TableIdKey } from '@typesData/characters';
 
 import Header from './header';
 import Row from './row';
-
 interface TableProps<T extends { id: TableIdKey }> {
   caption: string;
   hideCaption?: boolean;
@@ -16,9 +15,9 @@ export const Table = <T extends { id: TableIdKey }>({
   headers,
   rows,
 }: TableProps<T>) => (
-  <table className='table-auto border-2 border-table-border'>
+  <table className='table-auto border-2 border-table-border border-collapse'>
     <caption
-      className={`text-secondary-heading text-text-color-subheading font-family-heading font-bold  mb-4 ${
+      className={`text-secondary-heading text-text-color-subheading font-family-heading font-bold ${
         hideCaption ? 'sr-only' : ''
       }`}
     >
