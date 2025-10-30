@@ -1,13 +1,8 @@
 import { type ReactNode } from 'react';
 
-interface InputProps {
-  type?: string;
-  name: string;
-  value?: string;
-  onChange?: (e: React.UIEvent<HTMLDivElement>) => void;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   hideLabel: boolean;
-  placeholder?: string;
   children?: ReactNode;
 }
 
