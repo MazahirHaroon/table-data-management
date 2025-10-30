@@ -14,6 +14,7 @@ const Characters = () => {
 
   const [query, setQuery] = useState<string>('');
   const [debouncedQuery, setDebouncedQuery] = useState<string>('');
+  const [searchVersion, setSearchVersion] = useState<number>(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -40,6 +41,7 @@ const Characters = () => {
   useEffect(() => {
     const id = setTimeout(() => {
       setDebouncedQuery(query.trim());
+      setSearchVersion((v) => v + 1);
     }, 300);
 
     return () => {
@@ -106,6 +108,7 @@ const Characters = () => {
         hideCaption={true}
         headers={characterTableHeader}
         rows={filteredCharacters}
+        scrollToTopSignal={searchVersion}
       />
     </div>
   );

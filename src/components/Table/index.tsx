@@ -12,6 +12,7 @@ interface TableProps<T extends { id: TableIdKey }> {
   maxHeightClass?: string;
   itemHeight?: number;
   overscan?: number;
+  scrollToTopSignal?: number;
 }
 
 export const Table = <T extends { id: TableIdKey }>({
@@ -22,6 +23,7 @@ export const Table = <T extends { id: TableIdKey }>({
   maxHeightClass = 'max-h-[585px]',
   itemHeight = 58,
   overscan = 5,
+  scrollToTopSignal,
 }: TableProps<T>) => {
   const [scrollTop, setScrollTop] = useState<number>(0);
   const [containerHeight, setContainerHeight] = useState<number>(0);
@@ -73,6 +75,14 @@ export const Table = <T extends { id: TableIdKey }>({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalRows, containerHeight]);
+
+  useEffect(() => {
+    if (typeof scrollToTopSignal === 'undefined') return;
+    const el = containerRef.current;
+    if (!el) return;
+    el.scrollTo({ top: 0, behavior: 'smooth' });
+    setScrollTop(0);
+  }, [scrollToTopSignal]);
 
   return (
     <div
