@@ -54,14 +54,12 @@ const Characters = () => {
 
     const queryValue = debouncedQuery.toLowerCase();
 
-    const newList = characters.filter((character) => {
+    return characters.filter((character) => {
       return (
         String(character?.name).toLowerCase().includes(queryValue) ||
         String(character?.location).toLowerCase().includes(queryValue)
       );
     });
-    console.log(newList);
-    return newList;
   }, [characters, debouncedQuery]);
 
   if (loading)
