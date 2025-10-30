@@ -2,7 +2,7 @@ import type { TableIdKey } from '@typesData/characters';
 import { memo } from 'react';
 
 interface RowProps<T extends { id: TableIdKey }> {
-  headers: (keyof T)[];
+  headers: (string | number | symbol)[];
   row: T;
   itemHeight: number;
 }

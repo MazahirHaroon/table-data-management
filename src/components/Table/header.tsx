@@ -1,14 +1,9 @@
 import { memo } from 'react';
-
-import type { TableIdKey } from '@typesData/characters';
-
-interface HeaderProps<T extends { id: TableIdKey }> {
-  headers: (keyof T)[];
+interface HeaderProps {
+  headers: (string | number | symbol)[];
 }
 
-export const Header = <T extends { id: TableIdKey }>({
-  headers,
-}: HeaderProps<T>) => (
+export const Header = ({ headers }: HeaderProps) => (
   <thead className='sticky top-0'>
     <tr>
       {headers.map((header) => (
