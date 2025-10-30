@@ -3,6 +3,8 @@ import { type ReactNode } from 'react';
 interface InputProps {
   type?: string;
   name: string;
+  value?: string;
+  onChange?: (e: React.UIEvent<HTMLDivElement>) => void;
   label: string;
   hideLabel: boolean;
   placeholder?: string;
@@ -14,6 +16,8 @@ const Input = ({
   hideLabel,
   children,
   type = 'text',
+  value,
+  onChange,
   ...props
 }: InputProps) => (
   <div className='flex flex-col'>
@@ -29,6 +33,8 @@ const Input = ({
       id={props.name}
       type={type}
       className='placeholder-text-color-subheading w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark'
+      value={value}
+      onChange={onChange}
       {...props}
     />
     {children}
