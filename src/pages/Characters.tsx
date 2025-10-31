@@ -101,17 +101,19 @@ const Characters = () => {
         Characters' Data
       </h2>
       <div className='flex justify-between items-center w-full p-2 border-2 border-table-border'>
-        <Input
-          type='text'
-          name='search-characters'
-          label='Search Characters'
-          hideLabel={true}
-          placeholder='Search by name or location'
-          value={query}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setQuery(e.target.value)
-          }
-        />
+        <div className='min-w-64'>
+          <Input
+            type='text'
+            name='search-characters'
+            label='Search Characters'
+            hideLabel={true}
+            placeholder='Search by name or location'
+            value={query}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setQuery(e.target.value)
+            }
+          />
+        </div>
         <div className='m-2'>
           <PrimaryButton onClick={handleMarkViewed} children={'Submit'} />
         </div>
