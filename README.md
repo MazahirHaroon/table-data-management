@@ -21,6 +21,12 @@ A performant React table demo that renders 1000+ rows and supports:
 ```graphql
 src/
 │── components/ (Reusable UI components)
+│   ├── customUI/
+│   │   ├── Input.tsx
+│   │   ├── Checkbox.tsx
+│   │   ├── Button/
+│   │   │   ├── Primary.tsx
+│   │   │   ├── index.tsx (Re-exports buttons for easy imports)
 │   ├── Table/
 │   │   ├── index.tsx
 │   │   ├── Header.tsx
@@ -31,6 +37,7 @@ src/
 │   ├── App.tsx
 │   ├── Characters.tsx
 │   ├── ... other pages
+│   ├── index.ts (Re-exports page components)
 │
 │── utils/(Utility functions/helpers)
 │   ├── api.ts/ (helper function to connect with json server)
@@ -41,7 +48,7 @@ src/
 │   ├── characters.ts
 │   ├── ... other constant files
 |
-│── typesData/ (shared interaces/types)
+│── typesData/ (shared interfaces/types)
 │   ├── characters.ts
 │   ├── ... other typeData files
 |
@@ -51,6 +58,7 @@ src/
 
 ### Path Aliases
 
+- `@custom-ui`: UI Components Directory
 - `@components`: Components Directory
 - `@pages`: Pages Directory
 - `@utils`: Utils Directory
