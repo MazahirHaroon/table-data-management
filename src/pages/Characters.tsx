@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 
 import { characterTableHeader } from '@constants/characters';
-import type { CharacterList } from '@typesData/characters';
+import type { CharacterList, TableIdKey } from '@typesData/characters';
 import { getCharacters } from '@utils/api';
 
 import { PrimaryButton, Input } from '@custom-ui';
@@ -15,6 +15,8 @@ const Characters = () => {
   const [query, setQuery] = useState<string>('');
   const [debouncedQuery, setDebouncedQuery] = useState<string>('');
   const [searchVersion, setSearchVersion] = useState<number>(0);
+
+  const [selectedIds, setSelectedIds] = useState<Set<TableIdKey>>(new Set());
 
   useEffect(() => {
     const controller = new AbortController();
@@ -62,6 +64,19 @@ const Characters = () => {
     });
   }, [characters, debouncedQuery]);
 
+  const toggleSelection = (id: TableIdKey) => {
+    setSelectedIds((prev) => {
+      const updated = new Set(prev);
+      if (updated.has(id)) updated.delete(id);
+      else updated.add(id);
+      return updated;
+    });
+  };
+
+  const handleMarkViewed = () => {
+    console.log('Selected entity IDs:', Array.from(selectedIds));
+  };
+
   if (loading)
     return (
       <div className='flex justify-center items-center'>
@@ -98,7 +113,7 @@ const Characters = () => {
           }
         />
         <div className='m-2'>
-          <PrimaryButton content={'Submit'} />
+          <PrimaryButton onClick={handleMarkViewed} children={'Submit'} />
         </div>
       </div>
       <Table
@@ -107,6 +122,8 @@ const Characters = () => {
         headers={characterTableHeader}
         rows={filteredCharacters}
         scrollToTopSignal={searchVersion}
+        selectedIds={selectedIds}
+        toggleSelection={toggleSelection}
       />
     </div>
   );

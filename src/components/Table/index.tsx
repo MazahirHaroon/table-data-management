@@ -1,4 +1,3 @@
-// VirtualTable.tsx
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import type { TableIdKey } from '@typesData/characters';
 import Header from './header';
@@ -13,6 +12,8 @@ interface TableProps<T extends { id: TableIdKey }> {
   itemHeight?: number;
   overscan?: number;
   scrollToTopSignal?: number;
+  selectedIds?: Set<TableIdKey>;
+  toggleSelection?: (id: TableIdKey) => void;
 }
 
 export const Table = <T extends { id: TableIdKey }>({
@@ -24,6 +25,8 @@ export const Table = <T extends { id: TableIdKey }>({
   itemHeight = 58,
   overscan = 5,
   scrollToTopSignal,
+  selectedIds,
+  toggleSelection,
 }: TableProps<T>) => {
   const [scrollTop, setScrollTop] = useState<number>(0);
   const [containerHeight, setContainerHeight] = useState<number>(0);
@@ -84,46 +87,57 @@ export const Table = <T extends { id: TableIdKey }>({
     setScrollTop(0);
   }, [scrollToTopSignal]);
 
+  const selectionProps = (id: TableIdKey) =>
+    selectedIds && typeof toggleSelection === 'function'
+      ? {
+          selected: selectedIds.has(id),
+          onToggleSelect: () => toggleSelection(id),
+        }
+      : {};
+
   return (
-    <div
-      ref={containerRef}
-      className={`${maxHeightClass} overflow-y-auto relative`}
-      onScroll={handleScroll}
-    >
-      <table className='table-auto border-2 border-table-border border-collapse w-full'>
-        <caption
-          className={`text-secondary-heading text-text-color-subheading font-family-heading font-bold ${
-            hideCaption ? 'sr-only' : ''
-          }`}
-        >
-          {caption}
-        </caption>
+    <div className='flex flex-col'>
+      <div
+        ref={containerRef}
+        className={`${maxHeightClass} overflow-y-auto relative`}
+        onScroll={handleScroll}
+      >
+        <table className='table-auto border-2 border-table-border border-collapse w-full'>
+          <caption
+            className={`text-secondary-heading text-text-color-subheading font-family-heading font-bold ${
+              hideCaption ? 'sr-only' : ''
+            }`}
+          >
+            {caption}
+          </caption>
 
-        <Header headers={headers} />
+          <Header headers={headers} selectLabel={'Select'} />
 
-        <tbody>
-          {topSpacerHeight > 0 && (
-            <tr style={{ height: topSpacerHeight }}>
-              <td className='p-0 border-none' colSpan={headers.length} />
-            </tr>
-          )}
+          <tbody>
+            {topSpacerHeight > 0 && (
+              <tr style={{ height: topSpacerHeight }}>
+                <td className='p-0 border-none' colSpan={headers.length + 1} />
+              </tr>
+            )}
 
-          {displayRows.map((row) => (
-            <Row
-              key={row.id}
-              headers={headers}
-              row={row}
-              itemHeight={itemHeight}
-            />
-          ))}
+            {displayRows.map((row) => (
+              <Row
+                key={row.id}
+                headers={headers}
+                row={row}
+                itemHeight={itemHeight}
+                {...selectionProps(row.id)}
+              />
+            ))}
 
-          {bottomSpacerHeight > 0 && (
-            <tr style={{ height: bottomSpacerHeight }}>
-              <td className='p-0 border-none' colSpan={headers.length} />
-            </tr>
-          )}
-        </tbody>
-      </table>
+            {bottomSpacerHeight > 0 && (
+              <tr style={{ height: bottomSpacerHeight }}>
+                <td className='p-0 border-none' colSpan={headers.length + 1} />
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
