@@ -1,14 +1,13 @@
 import { type ReactNode } from 'react';
 
-interface PrimaryButtonProps {
-  content: string | ReactNode;
-  type?: 'submit' | 'reset' | 'button';
-  disabled?: boolean;
+interface PrimaryButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: string | ReactNode;
 }
 
 const PrimaryButton = ({
   type = 'button',
-  content,
+  children,
   disabled,
   ...props
 }: PrimaryButtonProps) => (
@@ -19,7 +18,7 @@ const PrimaryButton = ({
             hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer`}
     {...props}
   >
-    {content}
+    {children}
   </button>
 );
 
