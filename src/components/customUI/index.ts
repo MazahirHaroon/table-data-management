@@ -1,4 +1,5 @@
 import { PrimaryButton } from './Button';
 import Input from './Input';
+import CheckBox from './Checkbox';
 
-export { PrimaryButton, Input };
+export { PrimaryButton, Input, CheckBox };
