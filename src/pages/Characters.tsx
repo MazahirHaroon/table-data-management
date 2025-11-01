@@ -1,8 +1,13 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 
 import { characterTableHeader } from '@constants/characters';
-import type { CharacterList, TableIdKey } from '@typesData/characters';
+
+import type { CharacterList } from '@typesData/characters';
+import type { TableIdKey } from '@typesData/table';
+
 import { getCharacters } from '@utils/api';
+
+import { TableFeatureContext } from '@context/tableFeatureContext';
 
 import { PrimaryButton, Input } from '@custom-ui';
 import { Table } from '@components/Table';
@@ -64,18 +69,29 @@ const Characters = () => {
     });
   }, [characters, debouncedQuery]);
 
-  const toggleSelection = (id: TableIdKey) => {
-    setSelectedIds((prev) => {
-      const updated = new Set(prev);
-      if (updated.has(id)) updated.delete(id);
-      else updated.add(id);
-      return updated;
-    });
-  };
-
+  const toggleSelection = useCallback((id: TableIdKey) => {
+    {
+      setSelectedIds((prev) => {
+        const updated = new Set(prev);
+        if (updated.has(id)) updated.delete(id);
+        else updated.add(id);
+        return updated;
+      });
+    }
+  }, []);
   const handleMarkViewed = () => {
     console.log('Selected entity IDs:', Array.from(selectedIds));
   };
+
+  const contextValue = useMemo(
+    () => ({
+      selectedIds,
+      hasSelected: (id: TableIdKey) => selectedIds.has(id),
+      toggleSelection,
+      selectLabel: 'Select',
+    }),
+    [selectedIds, toggleSelection]
+  );
 
   if (loading)
     return (
@@ -100,6 +116,7 @@ const Characters = () => {
       <h2 className='text-center text-secondary-heading text-text-color-subheading font-family-heading font-bold mb-4'>
         Characters' Data
       </h2>
+
       <div className='flex justify-between items-center w-full p-2 border-2 border-table-border'>
         <div className='min-w-64'>
           <Input
@@ -118,15 +135,16 @@ const Characters = () => {
           <PrimaryButton onClick={handleMarkViewed} children={'Submit'} />
         </div>
       </div>
-      <Table
-        caption="Character's Database"
-        hideCaption={true}
-        headers={characterTableHeader}
-        rows={filteredCharacters}
-        scrollToTopSignal={searchVersion}
-        selectedIds={selectedIds}
-        toggleSelection={toggleSelection}
-      />
+
+      <TableFeatureContext.Provider value={contextValue}>
+        <Table
+          caption="Character's Database"
+          hideCaption={true}
+          headers={characterTableHeader}
+          rows={filteredCharacters}
+          scrollToTopSignal={searchVersion}
+        />
+      </TableFeatureContext.Provider>
     </div>
   );
 };
