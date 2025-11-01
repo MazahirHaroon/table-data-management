@@ -43,6 +43,10 @@ src/
 │   ├── api.ts/ (helper function to connect with json server)
 │   ├── ... other utility files
 │
+│── context/
+│   ├── tableFeatureContext.ts
+│   ├── ... other context files
+│
 │── constants/
 │   ├── api.ts
 │   ├── characters.ts
@@ -62,5 +66,6 @@ src/
 - `@components`: Components Directory
 - `@pages`: Pages Directory
 - `@utils`: Utils Directory
+- `@context`: Context Directory
 - `@constants`: Constants Directory
 - `@typesData`: Types/Interfaces Directory
