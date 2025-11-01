@@ -1,9 +1,9 @@
 import { JSON_SERVER } from '@constants/api';
-import type { ApiResponse } from '@typesData/characters';
+import type { CharacterApiResponse } from '@typesData/characters';
 
 const getCharacters = async (
   signal?: AbortSignal
-): Promise<ApiResponse | null> => {
+): Promise<CharacterApiResponse | null> => {
   try {
     const response = await fetch(`${JSON_SERVER}/characters`, { signal });
     if (!response.ok) {
@@ -11,7 +11,7 @@ const getCharacters = async (
         `API error | ${response.status} | ${response.statusText}`
       );
     }
-    const data = (await response.json()) as ApiResponse;
+    const data = (await response.json()) as CharacterApiResponse;
     return data;
   } catch (err: any) {
     if (err.name === 'AbortError') {
