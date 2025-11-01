@@ -1,24 +1,26 @@
-import type { TableIdKey } from '@typesData/characters';
-import { memo } from 'react';
-import { CheckBox } from '../customUI';
+import { useContext, memo } from 'react';
+
+import type { TableIdKey } from '@typesData/table';
+import { TableFeatureContext } from '@context/tableFeatureContext';
+
+import { CheckBox } from '@custom-ui';
 
 interface RowProps<T extends { id: TableIdKey }> {
   headers: (string | number | symbol)[];
   row: T;
   itemHeight: number;
-  selected?: boolean;
-  onToggleSelect?: () => void;
 }
 
 export const Row = <T extends { id: TableIdKey }>({
   headers,
   row,
   itemHeight,
-  selected,
-  onToggleSelect,
 }: RowProps<T>) => {
+  const { selectedIds, toggleSelection } = useContext(TableFeatureContext);
+
+  const selected = selectedIds ? selectedIds.has(row.id) : undefined;
   const showCheckbox =
-    typeof selected !== 'undefined' && typeof onToggleSelect === 'function';
+    typeof selected !== 'undefined' && typeof toggleSelection === 'function';
 
   return (
     <tr key={row.id} style={{ height: itemHeight }}>
@@ -29,7 +31,7 @@ export const Row = <T extends { id: TableIdKey }>({
             label='Select character details row'
             hideLabel={true}
             checked={selected}
-            onChange={onToggleSelect}
+            onChange={() => toggleSelection(row.id)}
           />
         </td>
       )}

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import type { TableIdKey } from '@typesData/characters';
+
+import type { TableIdKey } from '@typesData/table';
+
 import Header from './header';
 import Row from './row';
 
@@ -12,8 +14,6 @@ interface TableProps<T extends { id: TableIdKey }> {
   itemHeight?: number;
   overscan?: number;
   scrollToTopSignal?: number;
-  selectedIds?: Set<TableIdKey>;
-  toggleSelection?: (id: TableIdKey) => void;
 }
 
 export const Table = <T extends { id: TableIdKey }>({
@@ -25,8 +25,6 @@ export const Table = <T extends { id: TableIdKey }>({
   itemHeight = 58,
   overscan = 5,
   scrollToTopSignal,
-  selectedIds,
-  toggleSelection,
 }: TableProps<T>) => {
   const [scrollTop, setScrollTop] = useState<number>(0);
   const [containerHeight, setContainerHeight] = useState<number>(0);
@@ -87,14 +85,6 @@ export const Table = <T extends { id: TableIdKey }>({
     setScrollTop(0);
   }, [scrollToTopSignal]);
 
-  const selectionProps = (id: TableIdKey) =>
-    selectedIds && typeof toggleSelection === 'function'
-      ? {
-          selected: selectedIds.has(id),
-          onToggleSelect: () => toggleSelection(id),
-        }
-      : {};
-
   return (
     <div className='flex flex-col'>
       <div
@@ -111,7 +101,7 @@ export const Table = <T extends { id: TableIdKey }>({
             {caption}
           </caption>
 
-          <Header headers={headers} selectLabel={'Select'} />
+          <Header headers={headers} />
 
           <tbody>
             {topSpacerHeight > 0 && (
@@ -126,7 +116,6 @@ export const Table = <T extends { id: TableIdKey }>({
                 headers={headers}
                 row={row}
                 itemHeight={itemHeight}
-                {...selectionProps(row.id)}
               />
             ))}
 
