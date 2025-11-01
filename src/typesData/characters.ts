@@ -8,5 +8,3 @@ export interface CharacterList {
 }
 
 export type CharacterApiResponse = CharacterList[];
-
-export type TableIdKey = string | number;
