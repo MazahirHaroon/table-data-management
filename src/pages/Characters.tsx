@@ -8,6 +8,8 @@ import type { TableIdKey } from '@typesData/table';
 
 import { getCharacters } from '@utils/api';
 
+import { SecondaryHeading, Loading, Error } from '@custom-ui';
+
 import { Table } from '@components/Table';
 
 const Characters = () => {
@@ -43,29 +45,13 @@ const Characters = () => {
     console.log('Action for selected IDs:', selectedIds);
   }, []);
 
-  if (loading)
-    return (
-      <div className='flex justify-center items-center py-8'>
-        <p className='text-minor text-text-alerts font-family-body'>
-          Loading...
-        </p>
-      </div>
-    );
+  if (loading) return <Loading />;
 
-  if (error)
-    return (
-      <div className='flex justify-center items-center py-8'>
-        <p className='text-secondary-heading text-text-error font-family-body'>
-          {error}
-        </p>
-      </div>
-    );
+  if (error) return <Error />;
 
   return (
     <div className='flex flex-col'>
-      <h2 className='text-center text-secondary-heading text-text-color-subheading font-family-heading font-bold mb-4'>
-        Characters' Data
-      </h2>
+      <SecondaryHeading text={`Characters' Data`} />
 
       <Table<CharacterList>
         caption="Character's Database"
