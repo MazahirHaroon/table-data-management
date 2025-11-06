@@ -9,3 +9,9 @@ export type SelectConfig = {
   buttonLabel: string | undefined;
   onAction: (selectedIds: TableIdKey[]) => void | Promise<void>;
 };
+
+export type SearchConfig<T> = {
+  searchKeys: (keyof T)[];
+  placeholder: string;
+  delay?: number;
+};
