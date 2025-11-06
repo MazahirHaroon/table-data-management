@@ -7,7 +7,10 @@ import type {
 import type { TableIdKey } from '@typesData/table';
 
 import {
+  TableCaption,
   characterTableHeader,
+  SelectColumnText,
+  SelectionActionButtonLabel,
   CharacterSearchKeys,
   SearchPlaceholderText,
 } from '@constants/characters';
@@ -42,14 +45,14 @@ const Characters = () => {
       <SecondaryHeading text={`Characters' Data`} />
 
       <Table<CharacterList>
-        caption="Characters' Database"
+        caption={TableCaption}
         hideCaption={true}
         headers={characterTableHeader}
         rows={characters}
-        features={[FEATURE_SET.SELECT_AND_ACTION]}
+        features={[FEATURE_SET.SELECT_AND_ACTION, FEATURE_SET.SEARCH]}
         selectConfig={{
-          columnLabel: 'Select',
-          buttonLabel: 'Submit',
+          columnLabel: SelectColumnText,
+          buttonLabel: SelectionActionButtonLabel,
           onAction: handleSelectedAction,
         }}
         searchConfig={{
