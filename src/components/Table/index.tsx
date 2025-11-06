@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-import type { TableIdKey, TableFeatures, SelectConfig } from '@typesData/table';
+import type {
+  TableIdKey,
+  TableFeatures,
+  SelectConfig,
+  SearchConfig,
+} from '@typesData/table';
 
 import { FEATURE_SET } from 'src/constants/table';
 
-import { useSelection } from '@hooks/Table';
+import { useSearch, useSelection } from '@hooks/Table';
 
 import { PrimaryButton } from '@custom-ui';
 
 import Header from './header';
 import Row from './row';
+import Search from './search';
 
 interface TableProps<T extends { id: TableIdKey }> {
   caption: string;
@@ -26,6 +32,7 @@ interface TableProps<T extends { id: TableIdKey }> {
   // features
   features?: TableFeatures[];
   selectConfig?: SelectConfig;
+  searchConfig?: SearchConfig<T>;
 }
 
 export const Table = <T extends { id: TableIdKey }>({
@@ -43,12 +50,15 @@ export const Table = <T extends { id: TableIdKey }>({
   // features
   features = [],
   selectConfig,
+  searchConfig,
 }: TableProps<T>) => {
   const {
     columnLabel: SelectColumnLabel,
     buttonLabel: SelectButtonLabel,
     onAction: SelectAction,
   } = selectConfig ?? {};
+
+  const { searchKeys, placeholder, delay } = searchConfig ?? {};
 
   const {
     hasId: hasSelectedId,
@@ -58,9 +68,20 @@ export const Table = <T extends { id: TableIdKey }>({
     onAction: SelectAction,
   });
 
-  const enableSelect = features.includes(FEATURE_SET.SELECT_AND_ACTION);
+  const {
+    query,
+    setQuery,
+    filteredRows: finalRows,
+  } = useSearch({
+    rows,
+    searchKeys: searchKeys ?? headers,
+    delay,
+  });
 
-  const totalRows = rows.length;
+  const enableSelect = features.includes(FEATURE_SET.SELECT_AND_ACTION);
+  const enableSearch = features.includes(FEATURE_SET.SEARCH);
+
+  const totalRows = finalRows.length;
   const totalHeight = totalRows * itemHeight;
 
   const [scrollTop, setScrollTop] = useState<number>(0);
@@ -83,7 +104,7 @@ export const Table = <T extends { id: TableIdKey }>({
     ? Math.ceil(containerHeight / itemHeight) + overscan * 2
     : 0;
   const endIndex = Math.min(totalRows - 1, startIndex + visibleCount - 1);
-  const displayRows = rows.slice(startIndex, endIndex + 1);
+  const displayRows = finalRows.slice(startIndex, endIndex + 1);
 
   const topSpacerHeight = startIndex * itemHeight;
   const bottomSpacerHeight = Math.max(
@@ -118,7 +139,20 @@ export const Table = <T extends { id: TableIdKey }>({
 
   return (
     <div className='flex flex-col'>
-      <div className='flex justify-between items-center w-full p-2 border-2 border-table-border'>
+      <div
+        className={`flex ${
+          features.length > 1 ? 'justify-between' : 'justify-end'
+        } items-center w-full p-2 border-2 border-table-border`}
+      >
+        {enableSearch ? (
+          <div className='m-2'>
+            <Search
+              query={query}
+              setQuery={setQuery}
+              placeholder={placeholder}
+            />
+          </div>
+        ) : null}
         {enableSelect ? (
           <div className='m-2'>
             <PrimaryButton onClick={() => handleSelect()}>
