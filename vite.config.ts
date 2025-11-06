@@ -12,7 +12,6 @@ export default defineConfig({
       '@components': '/src/components',
       '@custom-ui': '/src/components/customUI/index',
       '@constants': '/src/constants',
-      '@utils': '/src/utils',
       '@typesData': '/src/typesData',
       '@hooks': '/src/hooks',
     },
