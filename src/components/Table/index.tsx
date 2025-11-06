@@ -11,11 +11,10 @@ import { FEATURE_SET } from 'src/constants/table';
 
 import { useSearch, useSelection } from '@hooks/Table';
 
-import { PrimaryButton } from '@custom-ui';
+import { PrimaryButton, Search } from '@custom-ui';
 
 import Header from './header';
 import Row from './row';
-import Search from './search';
 
 interface TableProps<T extends { id: TableIdKey }> {
   caption: string;

@@ -13,7 +13,7 @@ export const Search = ({
   query,
   setQuery,
   placeholder = 'Search',
-  name = 'table-search',
+  name = 'search',
 }: Props) => {
   return (
     <div className='min-w-64'>
