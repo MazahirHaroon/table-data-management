@@ -16,7 +16,7 @@ export const Search = ({
   name = 'table-search',
 }: Props) => {
   return (
-    <div className=''>
+    <div className='min-w-64'>
       <Input
         type='text'
         name={name}
