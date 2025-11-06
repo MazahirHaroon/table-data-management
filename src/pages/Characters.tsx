@@ -30,6 +30,7 @@ const Characters = () => {
     error,
   } = useFetch<CharacterApiResponse>({
     url: `${JSON_SERVER}/characters`,
+    retries: 3,
   });
 
   const handleSelectedAction = useCallback((selectedIds: TableIdKey[]) => {
