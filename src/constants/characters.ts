@@ -1,10 +1,14 @@
 import type { CharacterList } from '@typesData/characters';
 
-const characterTableHeader: (keyof CharacterList)[] = [
+export const characterTableHeader: (keyof CharacterList)[] = [
   'name',
   'location',
   'health',
   'power',
 ];
 
-export { characterTableHeader };
+export const CharacterSearchKeys: (keyof CharacterList)[] = [
+  'name',
+  'location',
+];
+export const SearchPlaceholderText = 'Search in name and location';

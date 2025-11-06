@@ -6,7 +6,11 @@ import type {
 } from '@typesData/characters';
 import type { TableIdKey } from '@typesData/table';
 
-import { characterTableHeader } from '@constants/characters';
+import {
+  characterTableHeader,
+  CharacterSearchKeys,
+  SearchPlaceholderText,
+} from '@constants/characters';
 import { FEATURE_SET } from '@constants/table';
 import { JSON_SERVER } from '@constants/api';
 
@@ -38,7 +42,7 @@ const Characters = () => {
       <SecondaryHeading text={`Characters' Data`} />
 
       <Table<CharacterList>
-        caption="Character's Database"
+        caption="Characters' Database"
         hideCaption={true}
         headers={characterTableHeader}
         rows={characters}
@@ -47,6 +51,11 @@ const Characters = () => {
           columnLabel: 'Select',
           buttonLabel: 'Submit',
           onAction: handleSelectedAction,
+        }}
+        searchConfig={{
+          searchKeys: CharacterSearchKeys,
+          placeholder: SearchPlaceholderText,
+          delay: 200,
         }}
       />
     </div>
