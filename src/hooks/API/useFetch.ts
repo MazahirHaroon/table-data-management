@@ -33,7 +33,7 @@ export const useFetch = <T>({
           }
 
           const apiResponseData = await response.json();
-          setData(apiResponseData);
+          if (!signal?.aborted) setData(apiResponseData);
         } catch (err: any) {
           if (err.name === 'AbortError') return; // fetch cancelled — stop retrying
 
@@ -45,10 +45,12 @@ export const useFetch = <T>({
             return attemptFetch();
           }
 
-          setError(`Error after ${attempts} attempts: ${err}`);
-          setData([]);
+          if (!signal?.aborted) {
+            setError(`Error after ${attempts} attempts: ${err}`);
+            setData([]);
+          }
         } finally {
-          setLoading(false);
+          if (!signal?.aborted) setLoading(false);
         }
       };
 
