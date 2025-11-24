@@ -15,3 +15,11 @@ export type SearchConfig<T> = {
   placeholder: string;
   delay?: number;
 };
+
+export type SortDirection = 'asc' | 'desc' | 'none';
+
+export type SortConfig<T> = {
+  sortKeys: (keyof T)[];
+  defaultSort?: { column?: keyof T; direction?: 'asc' | 'desc' };
+  sortComparators?: Partial<{ [K in keyof T]: (a: T[K], b: T[K]) => number }>;
+};
