@@ -13,6 +13,7 @@ import {
   SelectionActionButtonLabel,
   CharacterSearchKeys,
   SearchPlaceholderText,
+  CharacterSortKeys,
 } from '@constants/characters';
 import { FEATURE_SET } from '@constants/table';
 import { JSON_SERVER } from '@constants/api';
@@ -41,6 +42,8 @@ const Characters = () => {
 
   if (error) return <Error />;
 
+  const { SELECT_AND_ACTION, SEARCH, SORT } = FEATURE_SET;
+
   return (
     <div className='flex flex-col'>
       <SecondaryHeading text={`Characters' Data`} />
@@ -50,7 +53,7 @@ const Characters = () => {
         hideCaption={true}
         headers={characterTableHeader}
         rows={characters}
-        features={[FEATURE_SET.SELECT_AND_ACTION, FEATURE_SET.SEARCH]}
+        features={[SELECT_AND_ACTION, SEARCH, SORT]}
         selectConfig={{
           columnLabel: SelectColumnText,
           buttonLabel: SelectionActionButtonLabel,
@@ -60,6 +63,9 @@ const Characters = () => {
           searchKeys: CharacterSearchKeys,
           placeholder: SearchPlaceholderText,
           delay: 200,
+        }}
+        sortConfig={{
+          sortKeys: CharacterSortKeys,
         }}
       />
     </div>
