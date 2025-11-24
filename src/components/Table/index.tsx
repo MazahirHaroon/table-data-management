@@ -5,11 +5,12 @@ import type {
   TableFeatures,
   SelectConfig,
   SearchConfig,
+  SortConfig,
 } from '@typesData/table';
 
 import { FEATURE_SET } from 'src/constants/table';
 
-import { useSearch, useSelection } from '@hooks/Table';
+import { useSearch, useSelection, useSort } from '@hooks/Table';
 
 import { PrimaryButton, Search } from '@custom-ui';
 
@@ -32,6 +33,7 @@ interface TableProps<T extends { id: TableIdKey }> {
   features?: TableFeatures[];
   selectConfig?: SelectConfig;
   searchConfig?: SearchConfig<T>;
+  sortConfig?: SortConfig<T>;
 }
 
 export const Table = <T extends { id: TableIdKey }>({
@@ -50,6 +52,7 @@ export const Table = <T extends { id: TableIdKey }>({
   features = [],
   selectConfig,
   searchConfig,
+  sortConfig,
 }: TableProps<T>) => {
   const {
     columnLabel: SelectColumnLabel,
@@ -58,6 +61,7 @@ export const Table = <T extends { id: TableIdKey }>({
   } = selectConfig ?? {};
 
   const { searchKeys, placeholder, delay } = searchConfig ?? {};
+  const { sortKeys, defaultSort, sortComparators } = sortConfig ?? {};
 
   const {
     hasId: hasSelectedId,
@@ -70,15 +74,27 @@ export const Table = <T extends { id: TableIdKey }>({
   const {
     query,
     setQuery,
-    filteredRows: finalRows,
+    filteredRows: searchedRows,
   } = useSearch({
     rows,
     searchKeys: searchKeys ?? headers,
     delay,
   });
 
+  const {
+    filteredRows: finalRows,
+    sortState,
+    toggleSort,
+    clearSort,
+  } = useSort<T>({
+    rows: searchedRows,
+    defaultSort,
+    sortComparators,
+  });
+
   const enableSelect = features.includes(FEATURE_SET.SELECT_AND_ACTION);
   const enableSearch = features.includes(FEATURE_SET.SEARCH);
+  const enableSort = features.includes(FEATURE_SET.SORT);
 
   const totalRows = finalRows.length;
   const totalHeight = totalRows * itemHeight;
@@ -175,10 +191,15 @@ export const Table = <T extends { id: TableIdKey }>({
             {caption}
           </caption>
 
-          <Header
+          <Header<T>
             headers={headers}
             enableSelect={enableSelect}
             selectColumnLabel={SelectColumnLabel}
+            enableSort={enableSort}
+            sortKeys={sortKeys}
+            sortState={sortState}
+            onToggleSort={toggleSort}
+            onClearSort={clearSort}
           />
 
           <tbody>
