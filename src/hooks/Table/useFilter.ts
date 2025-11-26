@@ -50,12 +50,12 @@ export const useFilter = <T>({ rows, options = {} }: UseFilterProps<T>) => {
     [options]
   );
 
-  const filteredRows = useMemo(() => {
+  const filteredRows: T[] = useMemo(() => {
     const activeColumnNames = Object.keys(active) as (keyof T)[];
 
     if (!activeColumnNames.length) return rows;
 
-    rows.filter((row) =>
+    return rows.filter((row) =>
       activeColumnNames.every((column) => {
         const selectedFilters = active[column] ?? [];
         const columnValue = row[column];
