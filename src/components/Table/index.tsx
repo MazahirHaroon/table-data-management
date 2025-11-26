@@ -191,7 +191,7 @@ export const Table = <T extends { id: TableIdKey }>({
             {caption}
           </caption>
 
-          <Header<T>
+          <Header
             headers={headers}
             enableSelect={enableSelect}
             selectColumnLabel={SelectColumnLabel}
