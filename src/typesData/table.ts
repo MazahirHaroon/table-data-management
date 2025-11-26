@@ -23,3 +23,8 @@ export type SortConfig<T> = {
   defaultSort?: { column?: keyof T; direction?: 'asc' | 'desc' };
   sortComparators?: Partial<{ [K in keyof T]: (a: T[K], b: T[K]) => number }>;
 };
+
+export type FilterOption = {
+  label: string;
+  value: unknown;
+};
