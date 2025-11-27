@@ -40,7 +40,7 @@ export function useSort<T>({
     });
   }, []);
 
-  const filteredRows = useMemo(() => {
+  const sortedRows = useMemo(() => {
     if (sortState.direction === 'none' || !sortState.column) {
       return rows;
     }
@@ -78,7 +78,7 @@ export function useSort<T>({
   }, [rows, sortState, sortComparators]);
 
   return {
-    filteredRows,
+    sortedRows,
     sortState,
     toggleSort,
     clearSort,

@@ -82,7 +82,7 @@ export const Table = <T extends { id: TableIdKey }>({
   });
 
   const {
-    filteredRows: finalRows,
+    sortedRows: finalRows,
     sortState,
     toggleSort,
     clearSort,
