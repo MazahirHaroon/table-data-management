@@ -32,6 +32,7 @@ export const Row = <T extends { id: TableIdKey }>({
             checked={selected}
             onChange={() => toggleSelection(row.id)}
             aria-checked={selected}
+            className='justify-center'
           />
         </td>
       )}
