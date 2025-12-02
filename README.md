@@ -39,13 +39,20 @@ src/
 │   ├── ... other pages
 │   ├── index.ts (Re-exports page components)
 │
-│── utils/(Utility functions/helpers)
-│   ├── api.ts/ (helper function to connect with json server)
-│   ├── ... other utility files
+│── hooks/ (Custom hooks)
+│   ├── API/
+│   │   ├── index.ts
+│   │   ├── useFetch.ts
+│   ├── Table/
+│   │   ├── index.ts
+│   │   ├── useFilter.ts
+│   │   ├── useSearch.ts
+│   │   ├── useSelection.ts
+│   │   ├── useSort.ts
 │
-│── context/
-│   ├── tableFeatureContext.ts
-│   ├── ... other context files
+│── utils/(Utility functions/helpers)
+│   ├── conditionalCheck.ts/ (helper function for comparison used in sorting)
+│   ├── ... other utility files
 │
 │── constants/
 │   ├── api.ts
