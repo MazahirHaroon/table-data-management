@@ -28,3 +28,7 @@ export type FilterOption = {
   label: string;
   value: unknown;
 };
+
+export type FilterConfig<T> = {
+  options: Partial<Record<keyof T, FilterOption[]>>;
+};

@@ -6,11 +6,12 @@ import type {
   SelectConfig,
   SearchConfig,
   SortConfig,
+  FilterConfig,
 } from '@typesData/table';
 
 import { FEATURE_SET } from 'src/constants/table';
 
-import { useSearch, useSelection, useSort } from '@hooks/Table';
+import { useSearch, useSelection, useSort, useFilter } from '@hooks/Table';
 
 import { PrimaryButton, Search } from '@custom-ui';
 
@@ -34,6 +35,7 @@ interface TableProps<T extends { id: TableIdKey }> {
   selectConfig?: SelectConfig;
   searchConfig?: SearchConfig<T>;
   sortConfig?: SortConfig<T>;
+  filterConfig?: FilterConfig<T>;
 }
 
 export const Table = <T extends { id: TableIdKey }>({
@@ -53,6 +55,7 @@ export const Table = <T extends { id: TableIdKey }>({
   selectConfig,
   searchConfig,
   sortConfig,
+  filterConfig,
 }: TableProps<T>) => {
   const {
     columnLabel: SelectColumnLabel,
@@ -62,6 +65,7 @@ export const Table = <T extends { id: TableIdKey }>({
 
   const { searchKeys, placeholder, delay } = searchConfig ?? {};
   const { sortKeys, defaultSort, sortComparators } = sortConfig ?? {};
+  const { options: filterOptions } = filterConfig ?? {};
 
   const {
     hasId: hasSelectedId,
@@ -82,12 +86,23 @@ export const Table = <T extends { id: TableIdKey }>({
   });
 
   const {
+    filteredRows: afterFilterRows,
+    activeFilters,
+    toggleValue: onToggleFilter,
+    clearColumn: onClearFilter,
+    getOptions: getFilterOptions,
+  } = useFilter<T>({
+    rows: searchedRows,
+    options: filterOptions ?? {},
+  });
+
+  const {
     sortedRows: finalRows,
     sortState,
     toggleSort,
     clearSort,
   } = useSort<T>({
-    rows: searchedRows,
+    rows: afterFilterRows,
     defaultSort,
     sortComparators,
   });
@@ -95,6 +110,7 @@ export const Table = <T extends { id: TableIdKey }>({
   const enableSelect = features.includes(FEATURE_SET.SELECT_AND_ACTION);
   const enableSearch = features.includes(FEATURE_SET.SEARCH);
   const enableSort = features.includes(FEATURE_SET.SORT);
+  const enableFilter = features.includes(FEATURE_SET.FILTER);
 
   const totalRows = finalRows.length;
   const totalHeight = totalRows * itemHeight;
@@ -200,6 +216,12 @@ export const Table = <T extends { id: TableIdKey }>({
             sortState={sortState}
             onToggleSort={toggleSort}
             onClearSort={clearSort}
+            enableFilter={enableFilter}
+            filterOptions={filterOptions}
+            activeFilters={activeFilters}
+            onToggleFilter={onToggleFilter}
+            onClearFilter={onClearFilter}
+            getFilterOptions={getFilterOptions}
           />
 
           <tbody>

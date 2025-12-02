@@ -17,4 +17,4 @@ export const CharacterSearchKeys: (keyof CharacterList)[] = [
 ];
 export const SearchPlaceholderText = 'Search in name and location';
 
-export const CharacterSortKeys: (keyof CharacterList)[] = ['power'];
+export const CharacterSortKeys: (keyof CharacterList)[] = ['power', 'health'];

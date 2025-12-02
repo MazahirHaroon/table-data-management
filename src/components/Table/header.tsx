@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useState, memo } from 'react';
 
 import {
   ArrowUpNarrowWide,
@@ -7,7 +7,9 @@ import {
   X,
 } from 'lucide-react';
 
-import type { SortDirection } from '@typesData/table';
+import type { SortDirection, FilterOption } from '@typesData/table';
+
+import { FilterMenu } from './options';
 
 interface HeaderProps<T> {
   headers: (keyof T)[];
@@ -19,6 +21,12 @@ interface HeaderProps<T> {
   onToggleSort?: (column: keyof T) => void;
   onSetSort?: (column?: keyof T, direction?: SortDirection) => void;
   onClearSort?: () => void;
+  enableFilter?: boolean;
+  filterOptions?: Partial<Record<keyof T, FilterOption[]>>;
+  activeFilters?: Partial<Record<keyof T, unknown[]>>;
+  onToggleFilter?: (column: keyof T, value: unknown) => void;
+  onClearFilter?: (column?: keyof T) => void;
+  getFilterOptions?: (column: keyof T) => FilterOption[];
 }
 
 export const Header = <T,>({
@@ -30,7 +38,17 @@ export const Header = <T,>({
   sortState,
   onToggleSort,
   onClearSort,
+  enableFilter,
+  filterOptions,
+  activeFilters,
+  onToggleFilter,
+  onClearFilter,
+  getFilterOptions,
 }: HeaderProps<T>) => {
+  const [openForColumn, setOpenForColumn] = useState<keyof T | undefined>(
+    undefined
+  );
+
   const renderSortControls = (header: keyof T) => {
     if (!enableSort || !sortKeys?.includes(header)) return null;
     const isActive = sortState?.column === header;
@@ -66,6 +84,29 @@ export const Header = <T,>({
       </div>
     );
   };
+
+  const renderFilter = (header: keyof T) => {
+    if (!enableFilter) return null;
+    const options = getFilterOptions
+      ? getFilterOptions(header)
+      : (filterOptions && filterOptions[header]) ?? [];
+
+    if (!options || options.length === 0) return null;
+
+    const selected = (activeFilters && activeFilters[header]) ?? [];
+    return (
+      <FilterMenu
+        header={header}
+        isOpen={openForColumn === header}
+        setOpen={setOpenForColumn}
+        options={options}
+        selected={selected}
+        onClearFilter={onClearFilter}
+        onToggleFilter={onToggleFilter}
+      />
+    );
+  };
+
   return (
     <thead className='sticky top-0'>
       <tr>
@@ -82,6 +123,7 @@ export const Header = <T,>({
             <div className='flex items-center'>
               <span className='flex-1'>{header as React.ReactNode}</span>
               {renderSortControls(header)}
+              {renderFilter(header)}
             </div>
           </th>
         ))}
