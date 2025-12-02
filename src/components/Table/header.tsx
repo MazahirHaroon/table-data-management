@@ -13,14 +13,19 @@ import { FilterMenu } from './options';
 
 interface HeaderProps<T> {
   headers: (keyof T)[];
+  // select props
   enableSelect?: boolean;
   selectColumnLabel?: string;
+
+  // sort props
   enableSort?: boolean;
   sortKeys?: (keyof T)[];
   sortState?: { column?: keyof T; direction: SortDirection };
   onToggleSort?: (column: keyof T) => void;
   onSetSort?: (column?: keyof T, direction?: SortDirection) => void;
   onClearSort?: () => void;
+
+  // filter props
   enableFilter?: boolean;
   filterOptions?: Partial<Record<keyof T, FilterOption[]>>;
   activeFilters?: Partial<Record<keyof T, unknown[]>>;
@@ -31,13 +36,16 @@ interface HeaderProps<T> {
 
 export const Header = <T,>({
   headers,
+  // select props
   enableSelect = false,
   selectColumnLabel = 'Select',
+  // sort props
   enableSort = false,
   sortKeys,
   sortState,
   onToggleSort,
   onClearSort,
+  // filter props
   enableFilter,
   filterOptions,
   activeFilters,
