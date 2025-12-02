@@ -1,13 +1,25 @@
 # table-data-management app
 
-A performant React table demo that renders 1000+ rows and supports:
+A performant and flexible React table demo capable of handling 1000+ rows with fully configurable features.
 
-- Row selection with checkboxes
-- Search by name or location
-- Filter by health (Healthy / Injured / Critical)
-- Sort by power (ascending / descending)
-- Console action to mark selected rows as "viewed" (logs selected IDs)
-- Loading states and accessibility considerations
+The table system supports searching, sorting, and filtering on any primitive column by simply passing the column name (and an optional comparator for sorting).
+
+### Core Features
+
+- Search across any chosen columns
+- Sort by any column (with optional custom comparator)
+- Filter by any column using configurable filter options
+- Row selection using checkboxes and custom actions on selected rows, pass custom function and do anything with the selected data.
+- Optimized rendering, loading states, and accessibility considerations
+
+### Example: Characters Page
+
+The Characters table demonstrates how the generic system can be configured:
+
+- Search: by name or location
+- Filter: by health (Healthy, Injured, Critical)
+- Sort: by power (ascending / descending)
+- Row selection: select multiple rows using checkboxes and log the selected IDs to the console
 
 ## **Tech Stack**
 
