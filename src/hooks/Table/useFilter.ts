@@ -59,9 +59,7 @@ export const useFilter = <T>({ rows, options = {} }: UseFilterProps<T>) => {
       activeColumnNames.every((column) => {
         const selectedFilters = active[column] ?? [];
         const columnValue = row[column];
-        return selectedFilters.some(
-          (filterValue) => filterValue === columnValue
-        );
+        return selectedFilters.includes(columnValue);
       })
     );
   }, [rows, active]);
