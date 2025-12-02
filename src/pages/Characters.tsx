@@ -42,7 +42,7 @@ const Characters = () => {
 
   if (error) return <Error />;
 
-  const { SELECT_AND_ACTION, SEARCH, SORT } = FEATURE_SET;
+  const { SELECT_AND_ACTION, SEARCH, SORT, FILTER } = FEATURE_SET;
 
   return (
     <div className='flex flex-col'>
@@ -53,7 +53,7 @@ const Characters = () => {
         hideCaption={true}
         headers={characterTableHeader}
         rows={characters}
-        features={[SELECT_AND_ACTION, SEARCH, SORT]}
+        features={[SELECT_AND_ACTION, SEARCH, SORT, FILTER]}
         selectConfig={{
           columnLabel: SelectColumnText,
           buttonLabel: SelectionActionButtonLabel,
@@ -66,6 +66,15 @@ const Characters = () => {
         }}
         sortConfig={{
           sortKeys: CharacterSortKeys,
+        }}
+        filterConfig={{
+          options: {
+            health: [
+              { label: 'Healthy', value: 'Healthy' },
+              { label: 'Injured', value: 'Injured' },
+              { label: 'Critical', value: 'Critical' },
+            ],
+          },
         }}
       />
     </div>
