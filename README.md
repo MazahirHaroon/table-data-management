@@ -15,6 +15,8 @@ A performant React table demo that renders 1000+ rows and supports:
 - **[TypeScript](https://www.typescriptlang.org/)** (v5)
 - **[Tailwind CSS](https://tailwindcss.com/)** (v4)
 - **[Vite](https://vitejs.dev/)** (v7)
+- **[json-server](https://github.com/typicode/json-server)** - Mock REST API for local development and testing large table datasets
+- **[lucide-react](https://lucide.dev/)** - Icon library used for sort, filter, and UI action icons
 
 ### Folder Structure
 
