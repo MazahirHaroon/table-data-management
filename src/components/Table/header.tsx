@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import React, { useState, memo } from 'react';
 
 import {
   ArrowUpNarrowWide,
@@ -34,7 +34,7 @@ interface HeaderProps<T> {
   getFilterOptions?: (column: keyof T) => FilterOption[];
 }
 
-export const Header = <T,>({
+const Header = <T,>({
   headers,
   // select props
   enableSelect = false,
@@ -140,4 +140,7 @@ export const Header = <T,>({
   );
 };
 
-export default memo(Header);
+const MemoHeader = memo(Header) as unknown as <T>(
+  props: HeaderProps<T>
+) => React.ReactElement;
+export default MemoHeader;
