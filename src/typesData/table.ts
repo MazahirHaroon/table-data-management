@@ -1,4 +1,4 @@
-import { FEATURE_SET } from '@constants/table';
+import { FEATURE_SET, TABLE_LIST } from '@constants/table';
 
 export type TableIdKey = string | number;
 
@@ -32,3 +32,5 @@ export type FilterOption = {
 export type FilterConfig<T> = {
   options: Partial<Record<keyof T, FilterOption[]>>;
 };
+
+export type TableName = (typeof TABLE_LIST)[keyof typeof TABLE_LIST];

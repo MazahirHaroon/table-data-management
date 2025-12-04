@@ -4,3 +4,8 @@ export const FEATURE_SET = {
   SORT: 'sort',
   FILTER: 'filter',
 } as const;
+
+export const TABLE_LIST = {
+  CHARACTERS: 'character',
+  CITIES: 'cities',
+} as const;
