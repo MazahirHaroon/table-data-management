@@ -1,10 +1,16 @@
 # **table-data-management app**
 
-**Live Demo:** Hosted it: https://moccasin-mosquito-566254.hostingersite.com
-
 A reusable and performant React table system capable of handling **thousands of rows** with smooth virtualization and fully configurable table features.
 
 This project demonstrates how a single generic table component can be plugged into multiple pages with different data structures, feature sets, and configurations — without modifying the table itself.
+
+
+**Live Demo:** Hosted it: https://moccasin-mosquito-566254.hostingersite.com
+
+### ⚠️ Important Note About Backend Load Time (Render Free Tier)
+The backend API runs on Render’s free tier, which automatically puts the server to sleep when it’s inactive.
+As a result, the **first request may take 40–60 seconds** while the server wakes up.
+Once the data has loaded, all subsequent interactions are fast, and the app runs smoothly.
 
 ---
 
