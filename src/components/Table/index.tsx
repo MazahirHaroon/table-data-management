@@ -186,7 +186,7 @@ export const Table = <T extends { id: TableIdKey }>({
         ) : null}
         {enableSelect ? (
           <div className='m-2'>
-            <PrimaryButton onClick={() => handleSelect()}>
+            <PrimaryButton size='sm' onClick={() => handleSelect()}>
               {SelectButtonLabel}
             </PrimaryButton>
           </div>
