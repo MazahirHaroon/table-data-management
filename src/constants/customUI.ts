@@ -3,3 +3,9 @@ export const BUTTON_SIZES = {
   md: 'h-12 px-5 text-base',
   lg: 'h-16 px-7 text-lg',
 } as const;
+
+export const SEARCH_BAR_LENGTH = {
+  sm: 'w-32',
+  md: 'w-64',
+  lg: 'w-96',
+} as const;

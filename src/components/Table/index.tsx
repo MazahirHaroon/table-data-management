@@ -63,7 +63,12 @@ export const Table = <T extends { id: TableIdKey }>({
     onAction: SelectAction,
   } = selectConfig ?? {};
 
-  const { searchKeys, placeholder, delay } = searchConfig ?? {};
+  const {
+    searchKeys,
+    placeholder,
+    delay,
+    width: SearchBarWidth,
+  } = searchConfig ?? {};
   const { sortKeys, defaultSort, sortComparators } = sortConfig ?? {};
   const { options: filterOptions } = filterConfig ?? {};
 
@@ -181,6 +186,7 @@ export const Table = <T extends { id: TableIdKey }>({
               query={query}
               setQuery={setQuery}
               placeholder={placeholder}
+              width={SearchBarWidth}
             />
           </div>
         ) : null}

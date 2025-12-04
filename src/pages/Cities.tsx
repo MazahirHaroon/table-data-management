@@ -60,6 +60,7 @@ const Cities = () => {
           searchKeys: CitiesSearchKeys,
           placeholder: SearchPlaceholderText,
           delay: 200,
+          width: 'lg',
         }}
         sortConfig={{
           sortKeys: CitiesSortKeys,

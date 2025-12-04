@@ -1,5 +1,8 @@
 import React from 'react';
 
+import type { SearchBarLength } from '@typesData/customUI';
+import { SEARCH_BAR_LENGTH } from '@constants/customUI';
+
 import { Input } from '@custom-ui';
 
 type Props = {
@@ -7,16 +10,18 @@ type Props = {
   setQuery: (q: string) => void;
   placeholder?: string;
   name?: string;
+  width?: SearchBarLength;
 };
 
 export const Search = ({
   query,
   setQuery,
   placeholder = 'Search',
+  width = 'md',
   name = 'search',
 }: Props) => {
   return (
-    <div className='min-w-64'>
+    <div className={`${SEARCH_BAR_LENGTH[width]}`}>
       <Input
         type='text'
         name={name}

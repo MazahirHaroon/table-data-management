@@ -1,4 +1,5 @@
 import { FEATURE_SET, TABLE_LIST } from '@constants/table';
+import type { SearchBarLength } from './customUI';
 
 export type TableIdKey = string | number;
 
@@ -14,6 +15,7 @@ export type SearchConfig<T> = {
   searchKeys: (keyof T)[];
   placeholder: string;
   delay?: number;
+  width?: SearchBarLength;
 };
 
 export type SortDirection = 'asc' | 'desc' | 'none';
