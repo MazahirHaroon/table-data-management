@@ -7,7 +7,7 @@ import { TABLE_LIST } from '@constants/table';
 
 import { PrimaryButton, SecondaryButton } from '@custom-ui';
 
-import { Characters, Cities } from '@pages';
+import { About, Characters, Cities } from '@pages';
 
 const TableSelection = () => {
   const { CHARACTERS, CITIES } = TABLE_LIST;
@@ -40,6 +40,8 @@ const TableSelection = () => {
                 Cities' Table
               </PrimaryButton>
             </section>
+            <hr className='w-full max-w-4xl mx-auto my-8 border-t border-gray-300' />
+            <About />
           </main>
         </>
       ) : (

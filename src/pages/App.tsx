@@ -1,5 +1,5 @@
 import { PrimaryHeading } from '@custom-ui';
-import { TableSelection, About } from '@pages';
+import { TableSelection } from '@pages';
 
 const App = () => {
   return (
@@ -9,10 +9,6 @@ const App = () => {
       </header>
 
       <TableSelection />
-
-      <hr className='w-full max-w-4xl mx-auto my-8 border-t border-gray-300' />
-
-      <About />
     </div>
   );
 };
