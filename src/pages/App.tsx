@@ -1,19 +1,15 @@
 import { PrimaryHeading } from '@custom-ui';
 
-import { Characters } from '@pages';
+import { TableSelection } from '@pages';
 
 const App = () => {
   return (
-    <>
-      <header className='flex justify-center gap-2 p-4 m-4'>
-        <PrimaryHeading text={'Anime'} />
+    <div className='pt-6'>
+      <header className='flex flex-col items-center gap-2 pt-4'>
+        <PrimaryHeading text={'The Table Project'} />
       </header>
-      <main>
-        <section className='flex flex-col justify-center items-center'>
-          <Characters />
-        </section>
-      </main>
-    </>
+      <TableSelection />
+    </div>
   );
 };
 
