@@ -68,26 +68,31 @@ const Header = <T,>({
           type='button'
           onClick={() => onToggleSort?.(header)}
           className='text-xs leading-none'
+          aria-label={
+            direction === 'asc'
+              ? `Sort ${String(header)} descending`
+              : `Sort ${String(header)} ascending`
+          }
         >
           {direction === 'asc' ? (
-            <ArrowUpNarrowWide />
+            <ArrowUpNarrowWide aria-hidden='true' />
           ) : direction === 'desc' ? (
-            <ArrowDownWideNarrow />
+            <ArrowDownWideNarrow aria-hidden='true' />
           ) : (
-            <ArrowDownUp />
+            <ArrowDownUp aria-hidden='true' />
           )}
         </button>
 
         <button
           type='button'
-          aria-label={`Clear sort`}
+          aria-label={`Clear sort for ${String(header)}`}
           onClick={(e) => {
             e.stopPropagation();
             onClearSort?.();
           }}
           className='text-[10px] leading-none ml-1'
         >
-          <X />
+          <X aria-hidden='true' />
         </button>
       </div>
     );
@@ -119,22 +124,37 @@ const Header = <T,>({
     <thead className='sticky top-0'>
       <tr>
         {enableSelect && (
-          <th className='border-2 border-table-border font-family-body text-text-color-subheading bg-primary-light p-4 w-2 text-center'>
+          <th
+            scope='col'
+            className='border-2 border-table-border font-family-body text-text-color-subheading bg-primary-light p-4 w-2 text-center'
+          >
             {selectColumnLabel}
           </th>
         )}
-        {headers.map((header) => (
-          <th
-            key={String(header)}
-            className='border-2 border-table-border font-family-body text-text-color-subheading bg-primary-light p-4 w-48 text-left capitalize'
-          >
-            <div className='flex items-center'>
-              <span className='flex-1'>{header as React.ReactNode}</span>
-              {renderSortControls(header)}
-              {renderFilter(header)}
-            </div>
-          </th>
-        ))}
+        {headers.map((header) => {
+          const isSorted = sortState?.column === header;
+          const ariaSort =
+            isSorted && sortState?.direction === 'asc'
+              ? 'ascending'
+              : isSorted && sortState?.direction === 'desc'
+              ? 'descending'
+              : 'none';
+
+          return (
+            <th
+              key={String(header)}
+              scope='col'
+              aria-sort={ariaSort}
+              className='border-2 border-table-border font-family-body text-text-color-subheading bg-primary-light p-4 w-48 text-left capitalize'
+            >
+              <div className='flex items-center'>
+                <span className='flex-1'>{header as React.ReactNode}</span>
+                {renderSortControls(header)}
+                {renderFilter(header)}
+              </div>
+            </th>
+          );
+        })}
       </tr>
     </thead>
   );
