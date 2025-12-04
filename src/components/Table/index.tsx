@@ -229,7 +229,7 @@ export const Table = <T extends { id: TableIdKey }>({
         tabIndex={0}
         aria-label={`${caption} table scroll region`}
       >
-        <table className='table-auto border-2 border-table-border border-collapse w-full'>
+        <table className='table-fixed border-2 border-table-border border-collapse w-full'>
           <caption
             className={`text-secondary-heading text-text-color-subheading font-family-heading font-bold ${
               hideCaption ? 'sr-only' : ''
