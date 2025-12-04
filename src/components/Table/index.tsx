@@ -169,9 +169,20 @@ export const Table = <T extends { id: TableIdKey }>({
     if (typeof scrollToTopSignal === 'undefined') return;
     const el = containerRef.current;
     if (!el) return;
-    el.scrollTo({ top: 0, behavior: 'smooth' });
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    el.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     setScrollTop(0);
   }, [scrollToTopSignal]);
+
+  const liveStatus = query
+    ? `Showing ${finalRows.length} results for '${query}'.`
+    : `Showing ${finalRows.length} rows.`;
+  const visibleRange = `Visible rows ${startIndex + 1} to ${Math.min(
+    endIndex + 1,
+    totalRows
+  )} of ${totalRows}.`;
 
   return (
     <div className='flex flex-col'>
@@ -200,9 +211,21 @@ export const Table = <T extends { id: TableIdKey }>({
       </div>
 
       <div
+        aria-live='polite'
+        aria-atomic='true'
+        className='sr-only'
+        id='table-status'
+      >
+        {liveStatus} {visibleRange}
+      </div>
+
+      <div
         ref={containerRef}
         className={`${maxHeightClass} overflow-y-auto relative`}
         onScroll={handleScroll}
+        role='region'
+        tabIndex={0}
+        aria-label={`${caption} table scroll region`}
       >
         <table className='table-auto border-2 border-table-border border-collapse w-full'>
           <caption
