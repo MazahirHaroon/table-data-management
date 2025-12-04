@@ -17,8 +17,8 @@ export const Row = <T extends { id: TableIdKey }>({
   headers,
   row,
   itemHeight,
-  enableSelect,
-  selected,
+  enableSelect = false,
+  selected = false,
   toggleSelection,
 }: RowProps<T>) => {
   return (
