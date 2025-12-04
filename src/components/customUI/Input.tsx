@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id?: string;
   name: string;
   label: string;
   hideLabel?: boolean;
@@ -8,6 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({
+  id,
   name,
   label,
   hideLabel = false,
@@ -16,27 +18,33 @@ const Input = ({
   value,
   onChange,
   ...props
-}: InputProps) => (
-  <div className='flex flex-col'>
-    <label
-      htmlFor={name}
-      className={`text-text-color-subheading font-medium mb-1 ${
-        hideLabel ? 'sr-only' : ''
-      }`}
-    >
-      {label}
-    </label>
-    <input
-      id={name}
-      type={type}
-      name={name}
-      className='placeholder-text-color-subheading w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark'
-      value={value}
-      onChange={onChange}
-      {...props}
-    />
-    {children}
-  </div>
-);
+}: InputProps) => {
+  const inputId = id ?? name;
+  const ariaLabelProps = hideLabel ? { 'aria-label': label } : {};
+
+  return (
+    <div className='flex flex-col'>
+      <label
+        htmlFor={inputId}
+        className={`text-text-color-subheading font-medium mb-1 ${
+          hideLabel ? 'sr-only' : ''
+        }`}
+      >
+        {label}
+      </label>
+      <input
+        id={inputId}
+        type={type}
+        name={name}
+        className='placeholder-text-color-subheading w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark'
+        value={value}
+        onChange={onChange}
+        {...ariaLabelProps}
+        {...props}
+      />
+      {children}
+    </div>
+  );
+};
 
 export default Input;
