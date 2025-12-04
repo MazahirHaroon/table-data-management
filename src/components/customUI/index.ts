@@ -1,5 +1,5 @@
 import { PrimaryHeading, SecondaryHeading } from './Heading';
-import { PrimaryButton } from './Button';
+import { PrimaryButton, SecondaryButton } from './Button';
 import Input from './Input';
 import Search from './Search';
 import CheckBox from './Checkbox';
@@ -10,6 +10,7 @@ export {
   PrimaryHeading,
   SecondaryHeading,
   PrimaryButton,
+  SecondaryButton,
   Input,
   Search,
   CheckBox,
