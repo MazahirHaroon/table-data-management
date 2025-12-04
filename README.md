@@ -1,25 +1,84 @@
-# table-data-management app
+# **table-data-management app**
 
-A performant and flexible React table demo capable of handling 1000+ rows with fully configurable features.
+**Live Demo:** Hosted it: https://moccasin-mosquito-566254.hostingersite.com
 
-The table system supports searching, sorting, and filtering on any primitive column by simply passing the column name (and an optional comparator for sorting).
+A reusable and performant React table system capable of handling **thousands of rows** with smooth virtualization and fully configurable table features.
 
-### Core Features
+This project demonstrates how a single generic table component can be plugged into multiple pages with different data structures, feature sets, and configurations — without modifying the table itself.
 
-- Search across any chosen columns
-- Sort by any column (with optional custom comparator)
-- Filter by any column using configurable filter options
-- Row selection using checkboxes and custom actions on selected rows, pass custom function and do anything with the selected data.
-- Optimized rendering, loading states, and accessibility considerations
+---
 
-### Example: Characters Page
+## **Overview**
 
-The Characters table demonstrates how the generic system can be configured:
+The table system includes searching, sorting, filtering, row selection, and accessibility features.  
+**Virtualization is always enabled** to provide high performance with very large datasets.
 
-- Search: by name or location
-- Filter: by health (Healthy, Injured, Critical)
-- Sort: by power (ascending / descending)
-- Row selection: select multiple rows using checkboxes and log the selected IDs to the console
+You can enable or disable search, sort, filter, and row selection by passing configuration props.  
+Virtualization remains on by default and cannot be turned off in this version.
+
+Two demo pages showcase how flexible and powerful the system is:
+
+* **Characters Table** — 1,008 rows
+* **Cities Table** — 23,016 rows
+
+Despite the massive difference in dataset size, both use the same table component.
+
+---
+
+## Hosting & Data Source
+
+This project uses separate hosting for the UI and API:
+
+### **Frontend Hosting**
+- The **React app** is deployed on **Hostinger**.
+
+### **Backend (Mock API) Hosting**
+- The **JSON data API** is hosted on **Render**, running on a Node.js server.
+- Locally, you can run the mock API using **json-server**, which serves the same data structure.
+- In production, the table fetches data from the Render-hosted API.
+
+---
+
+## **Core Features**
+
+* **Search** across any configured columns
+* **Sort** by any column, with optional custom comparators
+* **Filter** using configurable filter options
+* **Row Selection** with checkbox multi-select + custom actions
+* **Feature Interoperability** — search → sort → filter in any order
+* **Virtualized Rendering** for fast performance on huge datasets
+* **Accessibility** built-in: keyboard-friendly, ARIA attributes, focus management
+* **Reusable Component Architecture** — no internal changes needed to add new tables
+
+---
+
+## **Characters Table (1,008 rows)**
+
+This page demonstrates a lightweight configuration using the table system:
+
+* **Search:** by `name` or `location`
+* **Filter:** by `health` → `Healthy`, `Injured`, `Critical`
+* **Sort:** by `power` (ascending or descending)
+* **Selection:** select rows using checkboxes and log selected IDs
+
+---
+
+## **Cities Table (23,016 rows)**
+
+A large dataset that showcases virtualization and complex feature combinations:
+
+* **Search:** by `name`, `country`, or `subCountry`
+* **Sort:** by `name`, `country`, or `subCountry`
+* **Filter:** demo filter options include:
+
+  * `India`
+  * `United States`
+  * `United Kingdom`
+* **Selection:** same behavior as Characters page
+
+This table demonstrates how the system stays smooth and responsive even with tens of thousands of rows.
+
+---
 
 ## **Tech Stack**
 
@@ -30,63 +89,86 @@ The Characters table demonstrates how the generic system can be configured:
 - **[json-server](https://github.com/typicode/json-server)** - Mock REST API for local development and testing large table datasets
 - **[lucide-react](https://lucide.dev/)** - Icon library used for sort, filter, and UI action icons
 
-### Folder Structure
+---
+
+## **Reusable Components**
+
+The project includes a set of reusable UI components integrated with the table:
+
+* **Input**
+* **Checkbox**
+* **Primary / Secondary Buttons**
+* **Table**, **Header**, **Row** components
+* Configurable behavior via props: search keys, sort keys, filters, comparators, actions
+
+All pages use the same table instance — only the data and configuration change.
+
+---
+
+## **Folder Structure**
 
 ```graphql
 src/
-│── components/ (Reusable UI components)
+│── components/
 │   ├── customUI/
 │   │   ├── Input.tsx
 │   │   ├── Checkbox.tsx
 │   │   ├── Button/
 │   │   │   ├── Primary.tsx
-│   │   │   ├── index.tsx (Re-exports buttons for easy imports)
+│   │   │   ├── index.tsx
 │   ├── Table/
 │   │   ├── index.tsx
 │   │   ├── Header.tsx
 │   │   ├── Row.tsx
-│   ├── ... other components
 │
-│── pages/ (App pages/screens)
+│── pages/
 │   ├── App.tsx
+│   ├── TableSelection.tsx
 │   ├── Characters.tsx
-│   ├── ... other pages
-│   ├── index.ts (Re-exports page components)
+│   ├── Cities.tsx
+│   ├── DetailsPage.tsx
+│   ├── index.ts
 │
-│── hooks/ (Custom hooks)
+│── hooks/
 │   ├── API/
-│   │   ├── index.ts
 │   │   ├── useFetch.ts
 │   ├── Table/
-│   │   ├── index.ts
-│   │   ├── useFilter.ts
-│   │   ├── useSearch.ts
-│   │   ├── useSelection.ts
-│   │   ├── useSort.ts
+│       ├── useFilter.ts
+│       ├── useSearch.ts
+│       ├── useSelection.ts
+│       ├── useSort.ts
+│       ├── index.ts
 │
-│── utils/(Utility functions/helpers)
-│   ├── conditionalCheck.ts/ (helper function for comparison used in sorting)
-│   ├── ... other utility files
+│── utils/
+│   ├── conditionalCheck.ts
+│   ├── ... other helpers
 │
 │── constants/
 │   ├── api.ts
 │   ├── characters.ts
-│   ├── ... other constant files
-|
-│── typesData/ (shared interfaces/types)
+│   ├── table.ts
+│   ├── ... other constants
+│
+│── typesData/
 │   ├── characters.ts
-│   ├── ... other typeData files
-|
-│── index.css (Global styles, theme variables, and Tailwind setup)
+│   ├── table.ts
+│   ├── ... other types
+│
+│── index.css
 │── main.tsx
 ```
 
-### Path Aliases
+---
 
-- `@custom-ui`: UI Components Directory
-- `@components`: Components Directory
-- `@pages`: Pages Directory
-- `@utils`: Utils Directory
-- `@context`: Context Directory
-- `@constants`: Constants Directory
-- `@typesData`: Types/Interfaces Directory
+## **Path Aliases**
+
+| Alias         | Description                  |
+| ------------- | ---------------------------- |
+| `@custom-ui`  | Reusable UI components       |
+| `@components` | Shared components            |
+| `@pages`      | Screens and page components  |
+| `@utils`      | Utility functions            |
+| `@context`    | Context providers            |
+| `@constants`  | App constants and config     |
+| `@typesData`  | Shared TypeScript interfaces |
+
