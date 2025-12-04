@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
 import type { TableIdKey } from '@typesData/table';
 
@@ -22,9 +22,18 @@ export const Row = <T extends { id: TableIdKey }>({
   toggleSelection,
 }: RowProps<T>) => {
   return (
-    <tr key={row.id} style={{ height: itemHeight }}>
+    <tr
+      role='row'
+      tabIndex={0}
+      aria-selected={selected ? 'true' : 'false'}
+      style={{ height: itemHeight }}
+      className='hover:bg-gray-50 focus:outline-none'
+    >
       {enableSelect && (
-        <td className='border-2 border-table-border p-4 w-12 text-center'>
+        <td
+          role='cell'
+          className='border-2 border-table-border p-4 w-12 text-center'
+        >
           <CheckBox
             name={`select-row-${String(row.id)}`}
             label={`Select row ${String(row.id)}`}
@@ -37,8 +46,21 @@ export const Row = <T extends { id: TableIdKey }>({
         </td>
       )}
 
-      {headers.map((key) => {
+      {headers.map((key, idx) => {
         const cell = row[key as keyof T];
+
+        if (idx === 0) {
+          return (
+            <th
+              key={String(key)}
+              scope='row'
+              className='border-2 font-family-body text-text-color-subheading border-table-border p-4 w-48 text-left truncate'
+            >
+              {cell as React.ReactNode}
+            </th>
+          );
+        }
+
         return (
           <td
             key={String(key)}
