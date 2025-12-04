@@ -21,10 +21,11 @@ const SecondaryButton = ({
   <button
     type={type}
     disabled={disabled}
-    className={`${BUTTON_SIZES[size]} py-3 px-5 mt-2 bg-white text-primary-dark border border-primary-dark rounded-md
+    className={`${BUTTON_SIZES[size]} flex items-center justify-center py-3 px-5 mt-2 bg-white text-primary-dark border border-primary-dark rounded-md
             transition duration-200 ease-in-out
             hover:bg-primary-light hover:text-white
-            disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${className}`}
+            disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap
+ ${className}`}
     {...props}
   >
     {children}
