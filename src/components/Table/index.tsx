@@ -194,6 +194,8 @@ export const Table = <T extends { id: TableIdKey }>({
         {enableSearch ? (
           <div className='m-2'>
             <Search
+              id={`${caption}-table-search-input`}
+              name={`${caption}-table-search-input`}
               query={query}
               setQuery={setQuery}
               placeholder={placeholder}
