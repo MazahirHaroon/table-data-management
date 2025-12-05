@@ -2,7 +2,7 @@
 
 A reusable and performant React table system capable of handling **thousands of rows** with smooth virtualization and fully configurable table features.
 
-This project demonstrates how a single generic table component can be plugged into multiple pages with different data structures, feature sets, and configurations — without modifying the table itself.
+This project demonstrates how a single generic table component can be plugged into multiple pages with different data structures, feature sets, and configurations, without modifying the table itself.
 
 
 **Live Demo:** Hosted it: https://moccasin-mosquito-566254.hostingersite.com
@@ -24,8 +24,8 @@ Virtualization remains on by default and cannot be turned off in this version.
 
 Two demo pages showcase how flexible and powerful the system is:
 
-* **Characters Table** — 1,008 rows
-* **Cities Table** — 23,016 rows
+* **Characters Table** - 1,008 rows
+* **Cities Table** - 23,016 rows
 
 Despite the massive difference in dataset size, both use the same table component.
 
@@ -51,10 +51,10 @@ This project uses separate hosting for the UI and API:
 * **Sort** by any column, with optional custom comparators
 * **Filter** using configurable filter options
 * **Row Selection** with checkbox multi-select + custom actions
-* **Feature Interoperability** — search → sort → filter in any order
+* **Feature Interoperability** - search → sort → filter in any order
 * **Virtualized Rendering** for fast performance on huge datasets
 * **Accessibility** built-in: keyboard-friendly, ARIA attributes, focus management
-* **Reusable Component Architecture** — no internal changes needed to add new tables
+* **Reusable Component Architecture** - no internal changes needed to add new tables
 
 ---
 
@@ -107,7 +107,40 @@ The project includes a set of reusable UI components integrated with the table:
 * **Table**, **Header**, **Row** components
 * Configurable behavior via props: search keys, sort keys, filters, comparators, actions
 
-All pages use the same table instance — only the data and configuration change.
+All pages use the same table instance, only the data and configuration change.
+
+---
+
+## **Adding a New Table Page (Example: Cities Table)**
+
+One of the core design goals of this project is to make adding new tables simple, scalable, and configuration-driven.
+The **Cities** page is a practical example of how a new table can be introduced using the same reusable `Table` component, without modifying any internal table logic.
+
+To add a new table:
+
+1. **Fetch the required dataset** using `useFetch`.
+2. **Define table-specific configuration**, including:
+
+   * Table caption and header labels
+   * Search keys and placeholder
+   * Sort keys
+   * Filter options
+   * Selection labels and action handlers
+3. **Pass the required features** (e.g., `SEARCH`, `SORT`, `FILTER`, `SELECT_AND_ACTION`) to the `Table` component.
+4. **Add supporting constants and types**, such as:
+
+   * Header definitions
+   * Label maps
+   * Search and sort keys
+   * Filter lists
+   * Types (`CitiesList`, `CitiesApiResponse`, etc.)
+
+This demonstrates the flexibility and scalability of the architecture:
+**adding a new table only requires providing configuration, not editing the Table component itself.**
+
+🔗 **Related Commit:**
+*Implementation of the Cities page using the reusable Table component*
+**[https://github.com/MazahirHaroon/table-data-management/commit/4b166b39ebee2a3e3a3ee01802f8e44601446adc](https://github.com/MazahirHaroon/table-data-management/commit/4b166b39ebee2a3e3a3ee01802f8e44601446adc)**
 
 ---
 
